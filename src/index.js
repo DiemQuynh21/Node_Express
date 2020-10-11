@@ -9,6 +9,12 @@ const port = 3000
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware 
+app.use(express.urlencoded({
+  extended: true
+}));
+app.use(express.json());
+
 // http logger
 app.use(morgan('combined'));
 
@@ -16,8 +22,17 @@ app.use(morgan('combined'));
 app.engine('.hbs', handlebars({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'resource\\views'));
+
+
 app.get('/', (req, res) => {
   res.render('home');
+});
+
+app.get('/search', (req, res) => {
+  res.render('search');
+});
+app.post('/search', (req, res) => {
+  res.send('');
 });
 
 app.listen(port, () => {
